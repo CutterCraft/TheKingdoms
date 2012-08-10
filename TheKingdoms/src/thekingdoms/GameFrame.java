@@ -37,9 +37,10 @@ public class GameFrame extends Canvas implements Runnable {
     public SpriteSheetLoader loader;
     public Screen screen;
     
-    Chunk[][] chunkMap = new Chunk[20][20];
+    Chunk[][] chunkMap = new Chunk[8][5];
     
     public GameFrame(){
+        System.out.println("popo.o");
         this.setIgnoreRepaint(true);
         this.setBounds(0,0,width,height);
         start();
