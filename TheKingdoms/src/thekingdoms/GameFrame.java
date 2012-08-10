@@ -41,6 +41,7 @@ public class GameFrame extends Canvas implements Runnable {
     
     public GameFrame(){
         System.out.println("popo.o");
+        System.err.println("rharu r kwl");
         this.setIgnoreRepaint(true);
         this.setBounds(0,0,width,height);
         start();
