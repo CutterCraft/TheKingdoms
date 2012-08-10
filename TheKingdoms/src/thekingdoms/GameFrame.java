@@ -20,7 +20,7 @@ public class GameFrame extends Canvas implements Runnable {
     
     public static int height = TheKingdoms.HEIGHT;
     public static int width = TheKingdoms.WIDTH;
-    public static double scale = 1;
+    public static double scale = 0.5;
     public static int fps = 25;
     public static int period = 1000/fps;
     public int currentFps;
@@ -37,11 +37,11 @@ public class GameFrame extends Canvas implements Runnable {
     public SpriteSheetLoader loader;
     public Screen screen;
     
-    Chunk[][] chunkMap = new Chunk[8][5];
+    Chunk[][] chunkMap = new Chunk[16][11];
     
     public GameFrame(){
         System.out.println("popo.o");
-        System.err.println("rharu r kwl");
+        System.err.println("rharu r kwl imouto");
         this.setIgnoreRepaint(true);
         this.setBounds(0,0,width,height);
         start();
