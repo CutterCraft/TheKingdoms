@@ -40,7 +40,7 @@ public class Chunk {
             for(int y=0;y<map[x].length;y++){
                 int tmp = rand.nextInt(7);
                 for(int z=0;z<surfaceHeight[x][y]-tmp;z++){
-                    map[x][y][z] = new TileStoneIron(gameFrame,x,y);
+                    map[x][y][z] = new TileSand(gameFrame,x,y);
                     
                 }
                 for(int z=surfaceHeight[x][y]-tmp;z<surfaceHeight[x][y];z++){
