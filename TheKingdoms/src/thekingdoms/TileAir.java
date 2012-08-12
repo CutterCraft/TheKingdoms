@@ -8,13 +8,15 @@ package thekingdoms;
  *
  * @author Michael
  */
-public class TileStoneIron extends MapTile{
-    public TileStoneIron(int X, int Y, int Z){
-        super(Sprites.tiles[1][1], X, Y, Z, 16, 16, X/16, Y/16);
+public class TileAir extends MapTile{
+    public TileAir(int X, int Y, int Z){
+        super(Sprites.tiles[15][0], X, Y, Z, 16, 16, X/16, Y/16);
         setTraversable(true);
     }
     
     public int getTileID(){
-        return 5;
+        return 0;
     }
+    
 }
+
