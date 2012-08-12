@@ -29,8 +29,7 @@ public class TheKingdoms{
         }
         frame.setBounds(0,0,WIDTH,HEIGHT);
         
-        GameFrame game = new GameFrame();
-        frame.add(game);
+        frame.add(GameFrame.theGame);
         frame.pack();
         frame.setVisible(true);
         frame.setResizable(true);
