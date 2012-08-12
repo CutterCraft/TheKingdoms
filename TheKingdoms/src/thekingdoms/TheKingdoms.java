@@ -27,6 +27,7 @@ public class TheKingdoms{
             WIDTH = 1920;
             
         }
+        
         frame.setBounds(0,0,WIDTH,HEIGHT);
         
         frame.add(GameFrame.theGame);
@@ -34,5 +35,6 @@ public class TheKingdoms{
         frame.setVisible(true);
         frame.setResizable(true);
         frame.setIgnoreRepaint(true);
+        
     }
 }

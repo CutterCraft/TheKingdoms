@@ -14,7 +14,6 @@ public abstract class MapTile extends Node {
     public Rectangle recte = new Rectangle(0, 0, 1, 1);
     protected Sprite sprite;
     int imgWidth,imgHeight;
-    String mapTileType;
     
     int z;
 

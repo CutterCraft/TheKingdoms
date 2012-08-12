@@ -90,7 +90,6 @@ public class GameFrame extends Canvas implements Runnable {
                 renderMap[x][y].renderTopTiles(x*256, y*256);
             }
         }*/
-        testChunk.setTopTiles();
         testChunk.renderTopTiles(0,0);
         BufferStrategy bs = getBufferStrategy();
         if(bs == null){
@@ -104,6 +103,7 @@ public class GameFrame extends Canvas implements Runnable {
                 pixels[x+(y*width)] = screen.pixels[x+(y*screen.width)];
             }
         }
+        
         Graphics g = bs.getDrawGraphics();
         g.drawImage(image,0,0,getWidth(),getHeight(),null);
         g.setColor(Color.BLUE);
@@ -128,9 +128,17 @@ public class GameFrame extends Canvas implements Runnable {
                 }
             }
         }*/
+        
         ChunkManager cMan = ChunkManager.getChunkManager();
         
+        /*testChunk = new Chunk(0,0,0);
+        WorldGenerator.getWorldGenerator().preGenerateChunk(testChunk);
+        cMan.saveChunk(testChunk);
+        testChunk = null;*/
+        
         testChunk = cMan.loadChunk(0, 0, 0);
+        System.out.println(testChunk.map[0][1][0].getTileID());
+        testChunk.setTopTiles();
         
     }
     

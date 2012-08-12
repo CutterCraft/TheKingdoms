@@ -17,6 +17,16 @@ public class ChunkManager {
         return chunkManager;
     }
     
+    public Chunk getChunk(int x, int y, int z){
+        Chunk returnChunk = loadChunk(x,y,z);
+        if(returnChunk.map[0][0][0]==null){
+            returnChunk = new Chunk(x,y,z);
+            WorldGenerator.getWorldGenerator().preGenerateChunk(returnChunk);
+            saveChunk(returnChunk);
+        }
+        return returnChunk;
+    }
+    
     public void saveChunk(Chunk c){
         
         String[] saveString = c.getData();
@@ -31,23 +41,37 @@ public class ChunkManager {
         String path = "/"+x+"_"+y+"_"+z;
         String[] tmpStr = fileHandler.readFromFile(path);
         MapTile[][][] tmpMap = new MapTile[16][16][16];
+        int counter = 0;
         
         for(int i=0;i<tmpMap.length;i++){
+            
             for(int j=0;j<tmpMap[i].length;j++){
-                char[] tmpChar = tmpStr[i].toCharArray();
-                for(int k=0;k<tmpMap[i][j].length;k++){
-                    int tmpInt = 1;
-                    String id = "";
-                    while(tmpChar[tmpInt]!=' '){
+                
+                int tmpInt = 0;
+                int k = 0;
+                char[] tmpChar = tmpStr[counter].toCharArray();
+                counter++;
+                String id = "";
+                
+                while(tmpInt<tmpChar.length){
+                    
+                    if(tmpChar[tmpInt]!=' '){
                         id = id+tmpChar[tmpInt];
-                        tmpInt++;
+                    }else if(tmpChar[tmpInt]==' '){
+                        int tID = Integer.valueOf(id);
+                        tmpMap[i][j][k] = Tiles.tiles[tID];
+                        tmpMap[i][j][k].setCoords(i,j,k);
+                        id = "";
+                        k++;
                     }
-                    int tID = Integer.valueOf(id);
-                    tmpMap[i][j][k] = Tiles.tiles[tID];
-                    tmpMap[i][j][k].setCoords(i,j,k);
+                    
+                    tmpInt++;
                 }
+                
             }
+            
         }
+        
         Chunk tmpChunk = new Chunk(x,y,z);
         tmpChunk.setData(tmpMap);
         return tmpChunk;
