@@ -10,12 +10,8 @@ package thekingdoms;
  * @author Micheal
  */
 public class TileSand extends MapTile{
-    public TileSand(int X, int Y, int Z){
-        super(Sprites.tiles[3][0], X, Y, Z, 16, 16, X/16, Y/16);
+    public TileSand(GameFrame g, int X, int Y){
+        super(g, Sprites.tiles[3][0], X, Y, 16, 16, X/16, Y/16);
         setTraversable(true);
-    }
-    
-    public int getTileID(){
-        return 3;
     }
 }

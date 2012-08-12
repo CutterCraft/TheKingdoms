@@ -15,16 +15,14 @@ public abstract class MapTile extends Node {
     protected Sprite sprite;
     int imgWidth,imgHeight;
     String mapTileType;
-    
-    int z;
+    GameFrame gameFrame;
 
-    public MapTile(Sprite spr, int X, int Y, int Z, int w, int h, int iX, int iY){
+    public MapTile(GameFrame g, Sprite spr, int X, int Y, int w, int h, int iX, int iY){
         super(X, Y, w, h, iX, iY);
         sprite = spr;
         imgWidth = 32;
         imgHeight = 32;
-        
-        z = Z;
+        gameFrame = g;
         
     }
 
@@ -33,7 +31,7 @@ public abstract class MapTile extends Node {
      * @param g 
      */
     public void draw(int drawX, int drawY){
-        GameFrame.theGame.screen.renderSprite(drawX, drawY, sprite);
+        gameFrame.screen.renderSprite(drawX, drawY, sprite);
     }
 
     /*********
@@ -83,12 +81,6 @@ public abstract class MapTile extends Node {
     public void setY(int tmpY){
         y = tmpY;
     }
-    
-    public void setCoords(int X, int Y, int Z){
-        x = X;
-        y = Y;
-        z = Z;
-    }
 
     /**************
      * this method sets whether the tile can be used to move upon in the pathfinding class.
@@ -98,7 +90,5 @@ public abstract class MapTile extends Node {
     public void setTraversable(boolean b){
         this.traversable = b;
     }
-    
-    public abstract int getTileID();
 
 }

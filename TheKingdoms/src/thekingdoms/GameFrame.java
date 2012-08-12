@@ -20,14 +20,12 @@ public class GameFrame extends Canvas implements Runnable {
     
     public static int height = TheKingdoms.HEIGHT;
     public static int width = TheKingdoms.WIDTH;
-    public static double scale = 1;
+    public static double scale = 0.5;
     public static int fps = 25;
     public static int period = 1000/fps;
     public int currentFps;
     
-    public static GameFrame theGame = new GameFrame();
-    
-    public static final String NAME = "TheKingdoms";
+    public static final String NAME = "mikeys renderer";
 
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
@@ -39,10 +37,11 @@ public class GameFrame extends Canvas implements Runnable {
     public SpriteSheetLoader loader;
     public Screen screen;
     
-    //Chunk[][][] chunkMap = new Chunk[16][10][10];
-    Chunk testChunk;
+    Chunk[][] chunkMap = new Chunk[16][11];
     
     public GameFrame(){
+        System.out.println("popo.o");
+        System.err.println("rharu r kwl imouto");
         this.setIgnoreRepaint(true);
         this.setBounds(0,0,width,height);
         start();
@@ -84,14 +83,13 @@ public class GameFrame extends Canvas implements Runnable {
     }
     
     public void render(){
-        /*Chunk renderMap[][] = loadMap(0,0);
-        for (int x = 0; x<renderMap.length; x++){
-            for (int y = 0; y<renderMap[x].length; y++){
-                renderMap[x][y].renderTopTiles(x*256, y*256);
+        Chunk renderMap[][] = loadMap(0,0);
+        for (int x = 0; x<chunkMap.length; x++){
+            for (int y = 0; y<chunkMap[x].length; y++){
+                chunkMap[x][y].renderTopTiles(x*256, y*256);
             }
-        }*/
-        testChunk.setTopTiles();
-        testChunk.renderTopTiles(0,0);
+        }
+        
         BufferStrategy bs = getBufferStrategy();
         if(bs == null){
             createBufferStrategy(3);
@@ -120,23 +118,23 @@ public class GameFrame extends Canvas implements Runnable {
         //Sprite sprite = Sprites.tiles[0][0];
         //screen.renderSprite(0*sprite.width,0*sprite.height,sprite);
         
-        /*for( int x = 0; x < chunkMap.length; x++){
+        for( int x = 0; x < chunkMap.length; x++){
             for(int y = 0; y < chunkMap[x].length; y++){
-                for(int z = 0; z < chunkMap[x][y].length; z++){
-                    chunkMap[x][y][z] = new Chunk(x*16, y*16, z*16);
-                    System.out.println(x+" "+y+" "+z);
-                }
+                chunkMap[x][y] = new Chunk(this, x*256, y*256);
+                System.out.println(x+" "+y);
             }
-        }*/
-        ChunkManager cMan = ChunkManager.getChunkManager();
-        
-        testChunk = cMan.loadChunk(0, 0, 0);
+        }
         
     }
     
     public Chunk[][] loadMap(int X, int Y){
         Chunk[][] returnChunk = new Chunk[(int)(8/scale)][(int)(5/scale)];
-        
+        System.out.println(returnChunk.length+" "+returnChunk[0].length);
+        for(int x=0;x<returnChunk.length;x++){
+            for(int y=0;y<returnChunk[x].length;y++){
+                returnChunk[x][y] = chunkMap[X+x][Y+y];
+            }
+        }
         return returnChunk;
     }
     

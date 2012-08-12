@@ -10,12 +10,8 @@ package thekingdoms;
  * @author Micheal
  */
 public class TileGrass extends MapTile{
-    public TileGrass(int X, int Y, int Z){
-        super(Sprites.tiles[0][0], X, Y, Z, 16, 16, X/16, Y/16);
+    public TileGrass(GameFrame g, int X, int Y){
+        super(g, Sprites.tiles[0][0], X, Y, 16, 16, X/16, Y/16);
         setTraversable(true);
-    }
-    
-    public int getTileID(){
-        return 2;
     }
 }
