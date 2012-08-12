@@ -36,9 +36,16 @@ public class Chunk {
     public void setTopTiles(){
         for(int i = 0; i<map.length; i++){
             for(int j = 0; j<map[i].length; j++){
-                for(int k = 0; k<map[i][j].length; k++){
-                    if(map[i][j][k]!=null) topTile[i][j] = map[i][j][k];
-                }
+                setTopTile(i,j);
+            }
+        }
+    }
+    
+    public void setTopTile(int i, int j){
+        for(int k = 0; k<map[i][j].length; k++){
+            if(map[i][j][k]!=null){
+                topTile[i][j] = map[i][j][k];
+                return;
             }
         }
     }
@@ -77,7 +84,7 @@ public class Chunk {
                 String tmpLine = "";
                 for(int k=0;k<map[i][j].length;k++){
                     if(map[i][j][k]!=null){
-                        tmpLine = tmpLine+" "+map[i][j][k].getTileID();
+                        tmpLine = tmpLine+map[i][j][k].getTileID()+" ";
                     }else{
                         tmpLine = tmpLine+" "+0;
                     }
