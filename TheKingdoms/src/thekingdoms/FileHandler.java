@@ -55,15 +55,20 @@ public class FileHandler {
             System.out.println("file returned: "+tmpFile.getPath());
             return tmpFile;
         }else{
-            try{
-                System.out.println("file creation started");
-                tmpFile.createNewFile();
-                System.out.println("file created");
-            }catch(Exception e){
-                System.err.println("file could not be created: "+e.getStackTrace());
-            }
-            return tmpFile;
+            return null;
         }
+    }
+    
+    public static File createFile(String tmp){
+        File tmpFile = new File(currentFolder+tmp+".txt");
+        try{
+            System.out.println("file creation started");
+            tmpFile.createNewFile();
+            System.out.println("file created");
+        }catch(Exception e){
+            System.err.println("file could not be created: "+e.getStackTrace());
+        }
+        return tmpFile;
     }
     
     public static void createBaseFolders(){
@@ -123,9 +128,9 @@ public class FileHandler {
             
             return returnString;
         }catch(Exception e){
-            System.err.println("reading from file error at file: "+tmpFile.getPath()+" with stack trace error: "+e.getLocalizedMessage());
+            System.err.println("reading from file error at file: "+path+" with stack trace error: "+e.getLocalizedMessage());
+            return null;
         }
-        return null;
     }
     
 }

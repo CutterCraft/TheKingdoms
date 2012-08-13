@@ -19,11 +19,10 @@ public class ChunkManager {
     
     public Chunk getChunk(int x, int y, int z){
         Chunk returnChunk = loadChunk(x,y,z);
-        if(returnChunk.map[0][0][0]==null){
-            returnChunk = new Chunk(x,y,z);
-            WorldGenerator.getWorldGenerator().preGenerateChunk(returnChunk);
-            saveChunk(returnChunk);
+        if(returnChunk==null){
+            returnChunk = createChunk(x,y,z);
         }
+        returnChunk.setTopTiles();
         return returnChunk;
     }
     
@@ -40,21 +39,22 @@ public class ChunkManager {
         fileHandler.setFolder("/levelone");
         String path = "/"+x+"_"+y+"_"+z;
         String[] tmpStr = fileHandler.readFromFile(path);
+        if(tmpStr==null) return null;
         MapTile[][][] tmpMap = new MapTile[16][16][16];
-        int counter = 0;
         
+        int counter = 0;
         for(int i=0;i<tmpMap.length;i++){
-            
+
             for(int j=0;j<tmpMap[i].length;j++){
-                
+
                 int tmpInt = 0;
                 int k = 0;
                 char[] tmpChar = tmpStr[counter].toCharArray();
                 counter++;
                 String id = "";
-                
+
                 while(tmpInt<tmpChar.length){
-                    
+
                     if(tmpChar[tmpInt]!=' '){
                         id = id+tmpChar[tmpInt];
                     }else if(tmpChar[tmpInt]==' '){
@@ -64,18 +64,28 @@ public class ChunkManager {
                         id = "";
                         k++;
                     }
-                    
+
                     tmpInt++;
                 }
-                
+
             }
-            
+
         }
         
         Chunk tmpChunk = new Chunk(x,y,z);
         tmpChunk.setData(tmpMap);
         return tmpChunk;
         
+    }
+    
+    public Chunk createChunk(int x, int y, int z){
+        Chunk returnChunk = new Chunk(x,y,z);
+        String path = "/"+x+"_"+y+"_"+z;
+        fileHandler.setFolder("/levelone");
+        fileHandler.createFile(path);
+        WorldGenerator.getWorldGenerator().preGenerateChunk(returnChunk);
+        saveChunk(returnChunk);
+        return returnChunk;
     }
     
 }
