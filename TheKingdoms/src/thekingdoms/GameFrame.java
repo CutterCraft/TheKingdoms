@@ -20,7 +20,7 @@ public class GameFrame extends Canvas implements Runnable {
     
     public static int height = TheKingdoms.HEIGHT;
     public static int width = TheKingdoms.WIDTH;
-    public static double scale = 1;
+    public static double scale = 0.5;
     public static int fps = 25;
     public static int period = 1000/fps;
     public int currentFps;
@@ -39,8 +39,7 @@ public class GameFrame extends Canvas implements Runnable {
     public SpriteSheetLoader loader;
     public Screen screen;
     
-    //Chunk[][][] chunkMap = new Chunk[16][10][10];
-    Chunk testChunk;
+    Chunk[][][] chunkMap = new Chunk[16][][];
     
     public GameFrame(){
         this.setIgnoreRepaint(true);
@@ -84,13 +83,12 @@ public class GameFrame extends Canvas implements Runnable {
     }
     
     public void render(){
-        /*Chunk renderMap[][] = loadMap(0,0);
-        for (int x = 0; x<renderMap.length; x++){
-            for (int y = 0; y<renderMap[x].length; y++){
-                renderMap[x][y].renderTopTiles(x*256, y*256);
+        for (int x = 0; x<chunkMap[0].length; x++){
+            for (int y = 0; y<chunkMap[0][x].length; y++){
+                chunkMap[0][x][y].renderTopTiles(x*256, y*256);
             }
-        }*/
-        testChunk.renderTopTiles(0,0);
+        }
+        
         BufferStrategy bs = getBufferStrategy();
         if(bs == null){
             createBufferStrategy(3);
@@ -117,33 +115,20 @@ public class GameFrame extends Canvas implements Runnable {
         
         loader = new SpriteSheetLoader();
         screen = new Screen(width, height, 16);
-        //Sprite sprite = Sprites.tiles[0][0];
-        //screen.renderSprite(0*sprite.width,0*sprite.height,sprite);
         
-        /*for( int x = 0; x < chunkMap.length; x++){
-            for(int y = 0; y < chunkMap[x].length; y++){
-                for(int z = 0; z < chunkMap[x][y].length; z++){
-                    chunkMap[x][y][z] = new Chunk(x*16, y*16, z*16);
-                    System.out.println(x+" "+y+" "+z);
-                }
-            }
-        }*/
-        
-        ChunkManager cMan = ChunkManager.getChunkManager();
-        
-        /*testChunk = new Chunk(0,0,0);
-        WorldGenerator.getWorldGenerator().preGenerateChunk(testChunk);
-        cMan.saveChunk(testChunk);
-        testChunk = null;*/
-        
-        testChunk = cMan.loadChunk(0, 0, 0);
-        System.out.println(testChunk.map[0][1][0].getTileID());
-        testChunk.setTopTiles();
+        chunkMap[0] = loadMap(0,0);
         
     }
     
     public Chunk[][] loadMap(int X, int Y){
-        Chunk[][] returnChunk = new Chunk[(int)(8/scale)][(int)(5/scale)];
+        Chunk[][] returnChunk = new Chunk[(int)(7/scale)][(int)(4/scale)];
+        
+        for(int i=0;i<returnChunk.length;i++){
+            for(int j=0;j<returnChunk[i].length;j++){
+                returnChunk[i][j] = ChunkManager.getChunkManager().getChunk(X-((int)returnChunk.length/2)+i, Y-((int)returnChunk[i].length/2)+j, 0);
+                
+            }
+        }
         
         return returnChunk;
     }
