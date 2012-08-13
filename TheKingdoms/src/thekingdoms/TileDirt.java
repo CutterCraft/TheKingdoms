@@ -10,7 +10,7 @@ package thekingdoms;
  */
 public class TileDirt extends MapTile{
     public TileDirt(int X, int Y, int Z){
-        super(Sprites.tiles[2][0], X, Y, Z, 16, 16, X/16, Y/16);
+        super(Sprites.getSprite(Sprites.tiles,2,0), X, Y, Z, 16, 16, X/16, Y/16);
         setTraversable(true);
     }
     

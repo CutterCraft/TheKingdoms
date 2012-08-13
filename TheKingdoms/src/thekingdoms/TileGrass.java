@@ -11,7 +11,7 @@ package thekingdoms;
  */
 public class TileGrass extends MapTile{
     public TileGrass(int X, int Y, int Z){
-        super(Sprites.tiles[0][0], X, Y, Z, 16, 16, X/16, Y/16);
+        super(Sprites.getSprite(Sprites.tiles,0,0), X, Y, Z, 16, 16, X/16, Y/16);
         setTraversable(true);
     }
     

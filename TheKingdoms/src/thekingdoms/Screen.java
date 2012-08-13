@@ -25,21 +25,20 @@ public class Screen {
 
     public void renderSprite(int xPos, int yPos, Sprite sprite){
         
-        int h = (int)(sprite.height*GameFrame.scale);
-        int w = (int)(sprite.width*GameFrame.scale);
-        
+        int h = sprite.height;
+        int w = sprite.width;
         xPos -= xOffset;
         yPos -= yOffset;
-        xPos *=GameFrame.scale;
-        yPos *=GameFrame.scale;
+        xPos *=GameFrame.scales[GameFrame.scale];
+        yPos *=GameFrame.scales[GameFrame.scale];
         
         for(int y=0;y<h;y++){
             if(yPos + y < 0 || yPos + y >= height) continue;
             for(int x=0;x<w;x++){
                 if(xPos + x < 0 || xPos + x >= width) continue;
-                int col = sprite.pixels[x+(y*h)];
-                if(col != -65281&&col<0) pixels[(x + xPos) + (y + yPos)*width] = col;
-                
+                int col = sprite.pixels[x+(y*w)];
+                if(col != -65281&&col<0) pixels[(x + xPos) + ((y + yPos)*width)] = col;
+                    
             }
             
         }
