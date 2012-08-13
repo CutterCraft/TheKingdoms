@@ -10,7 +10,7 @@ package thekingdoms;
  */
 public class TileStoneIron extends MapTile{
     public TileStoneIron(int X, int Y, int Z){
-        super(Sprites.tiles[1][1], X, Y, Z, 16, 16, X/16, Y/16);
+        super(Sprites.getSprite(Sprites.tiles,1,1), X, Y, Z, 16, 16, X/16, Y/16);
         setTraversable(true);
     }
     

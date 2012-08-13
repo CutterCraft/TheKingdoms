@@ -24,11 +24,17 @@ public class SpriteSheetLoader {
     
     public static Sprite[][] cutTiles(String fileName, int w, int h){
         
-        return cutTiles(fileName,w,h,0,0);
+        return cutTiles(fileName,w,h,0,0,1);
         
     }
     
-    public static Sprite[][] cutTiles(String fileName, int w, int h, int xOffset, int yOffset){
+    public static Sprite[][] cutTiles(String fileName, int w, int h, double scale){
+        
+        return cutTiles(fileName,w,h,0,0,scale);
+        
+    }
+    
+    public static Sprite[][] cutTiles(String fileName, int w, int h, int xOffset, int yOffset, double scale){
         
         try{
             BufferedImage image = ImageIO.read(GameFrame.class.getResource(fileName));
@@ -42,13 +48,30 @@ public class SpriteSheetLoader {
                 for(int y=0;y<yTiles;y++){
                     result[x][y] = new Sprite(w,h);
                     
-                    image.getRGB(xOffset+x*w,yOffset+y*h,w,h,result[x][y].pixels,0,w);
+                    image.getRGB(xOffset+x*w, yOffset+y*h, w, h, result[x][y].pixels, 0, w);
+                }
+            }
+            
+            for(int x=0;x<xTiles;x++){
+                for(int y=0;y<yTiles;y++){
+                    int[] tmpHolder = result[x][y].pixels;
+                    int newW = (int)(w*scale);
+                    int newH = (int)(h*scale);
+                    int[] modifiedHolder = new int[newW*newH];
+                    
+                    for(int i=0;i<modifiedHolder.length;i++){
+                        modifiedHolder[i] = tmpHolder[(int)(i/scale/scale)];
+                    }
+                    
+                    System.out.println("ran");
+                    result[x][y] = new Sprite(newW,newH);
+                    result[x][y].pixels = modifiedHolder;
                 }
             }
             
             return result;
         }catch(Exception e){
-            System.err.println(e.getStackTrace());
+            System.err.println("error in spriteSheetLoader: "+e.getLocalizedMessage());
         }
         
         return null;

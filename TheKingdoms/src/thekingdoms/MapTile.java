@@ -12,12 +12,12 @@ import pathfinder.Node;
  */
 public abstract class MapTile extends Node {
     public Rectangle recte = new Rectangle(0, 0, 1, 1);
-    protected Sprite sprite;
+    protected Sprite[] sprite;
     int imgWidth,imgHeight;
     
     int z;
 
-    public MapTile(Sprite spr, int X, int Y, int Z, int w, int h, int iX, int iY){
+    public MapTile(Sprite[] spr, int X, int Y, int Z, int w, int h, int iX, int iY){
         super(X, Y, w, h, iX, iY);
         sprite = spr;
         imgWidth = 32;
@@ -32,7 +32,7 @@ public abstract class MapTile extends Node {
      * @param g 
      */
     public void draw(int drawX, int drawY){
-        GameFrame.theGame.screen.renderSprite(drawX, drawY, sprite);
+        GameFrame.theGame.screen.renderSprite(drawX, drawY, sprite[GameFrame.scale]);
     }
 
     /*********

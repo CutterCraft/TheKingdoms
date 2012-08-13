@@ -20,7 +20,8 @@ public class GameFrame extends Canvas implements Runnable {
     
     public static int height = TheKingdoms.HEIGHT;
     public static int width = TheKingdoms.WIDTH;
-    public static double scale = 0.5;
+    public static int scale = 0;
+    public static double scales[] = {0.25,0.5,1,2,4};
     public static int fps = 25;
     public static int period = 1000/fps;
     public int currentFps;
@@ -85,9 +86,13 @@ public class GameFrame extends Canvas implements Runnable {
     public void render(){
         for (int x = 0; x<chunkMap[0].length; x++){
             for (int y = 0; y<chunkMap[0][x].length; y++){
-                chunkMap[0][x][y].renderTopTiles(x*256, y*256);
+                chunkMap[0][x][y].renderTopTiles((x*256), (y*256));
             }
         }
+        /*Sprite testSprite = Sprites.tiles[3][0][0];
+        System.out.println(testSprite.width+" "+testSprite.height);
+        System.out.println(testSprite.pixels.length+" "+(testSprite.width+(testSprite.height*testSprite.height)));
+        screen.renderSprite(0, 0, testSprite);*/
         
         BufferStrategy bs = getBufferStrategy();
         if(bs == null){
@@ -121,8 +126,8 @@ public class GameFrame extends Canvas implements Runnable {
     }
     
     public Chunk[][] loadMap(int X, int Y){
-        Chunk[][] returnChunk = new Chunk[(int)(7/scale)][(int)(4/scale)];
-        
+        Chunk[][] returnChunk = new Chunk[(int)(1920/(256*scales[scale]))][(int)(1080/(256*scales[scale]))];
+        System.out.println(returnChunk.length+" "+returnChunk[0].length);
         for(int i=0;i<returnChunk.length;i++){
             for(int j=0;j<returnChunk[i].length;j++){
                 returnChunk[i][j] = ChunkManager.getChunkManager().getChunk(X-((int)returnChunk.length/2)+i, Y-((int)returnChunk[i].length/2)+j, 0);
