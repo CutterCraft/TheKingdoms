@@ -26,7 +26,12 @@ public class WorldGenerator {
     public void preGenerateChunk(Chunk c){
         for(int x=0;x<c.map.length;x++){
             for(int y=0;y<c.map[x].length;y++){
-                for(int z=0;z<c.map[x][y].length;z++){
+            }
+        }
+        
+        for(int x=0;x<c.map.length;x++){
+            for(int y=0;y<c.map[x].length;y++){
+                for(int z=0;z</*c.height[x][y]*/16;z++){
                     c.map[x][y][z] = new TileStone(x,y,z);
                     
                 }
@@ -34,8 +39,8 @@ public class WorldGenerator {
         }
     }
     
-    public void createChunk(int i, int j, int k){
-        
+    public void setHeight(Chunk c, int x, int y, int h){
+        c.height[x][y] = h;
     }
     
 }

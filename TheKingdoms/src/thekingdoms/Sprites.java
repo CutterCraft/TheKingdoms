@@ -13,12 +13,10 @@ public class Sprites {
     public static Sprite[][][] tiles;
     
     {
-    tiles = new Sprite[5][][];
-    tiles[0] = SpriteSheetLoader.cutTiles("/tiles.png",16,16,0.25);
-    tiles[1] = SpriteSheetLoader.cutTiles("/tiles.png",16,16,0.5);
-    tiles[2] = SpriteSheetLoader.cutTiles("/tiles.png",16,16);
-    tiles[3] = SpriteSheetLoader.cutTiles("/tiles.png",16,16,2);
-    tiles[4] = SpriteSheetLoader.cutTiles("/tiles.png",16,16,4);
+        tiles = new Sprite[GameFrame.scales.length][][];
+        for(int i=0;i<tiles.length;i++){
+            tiles[i] = SpriteSheetLoader.cutTiles("/tiles.png",16,16,GameFrame.scales[i]);
+        }
     }
     
     public static Sprite[] getSprite(Sprite[][][] tmp, int i, int j){
