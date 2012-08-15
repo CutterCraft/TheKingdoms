@@ -12,6 +12,7 @@ import java.util.Random;
 public class Chunk {
     
     public MapTile[][][] map = new MapTile[16][16][16];
+    public int height[][] = new int[16][16];
     public MapTile[][] topTile = new MapTile[16][16];
     public int x,y,z;
     Random rand = new Random();

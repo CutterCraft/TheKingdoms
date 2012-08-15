@@ -88,4 +88,19 @@ public class ChunkManager {
         return returnChunk;
     }
     
+    public Chunk[][][] loadChunks(int X, int Y, int Z, int W, int H, int D){
+        Chunk[][][] returnChunk = new Chunk[W][H][D];
+        System.out.println(returnChunk.length+" "+returnChunk[0].length);
+        for(int i=0;i<returnChunk.length;i++){
+            for(int j=0;j<returnChunk[i].length;j++){
+                for(int k=0;k<returnChunk[i][j].length;k++){
+                    returnChunk[i][j][k] = getChunk(X-((int)returnChunk.length/2)+i, Y-((int)returnChunk[i].length/2)+j, Z-((int)returnChunk[i][j].length/2)+k);
+                
+                }
+            }
+        }
+        
+        return returnChunk;
+    }
+    
 }
